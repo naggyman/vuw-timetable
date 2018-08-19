@@ -1,7 +1,7 @@
 const request = require('request'), cachedRequest = require('cached-request')(request), cacheDirectory = '/Users/morganfrenchstagg/Dev/vic-ical';
 const express = require('express');
 const ical = require('ical-generator');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const cache = require('apicache');
 let app = express();
 
@@ -19,16 +19,18 @@ function getCalendarFromCourse(offering) {
             let events = [];
             let response = JSON.parse(body);
             response.data[0].timetable.items.forEach((item) => {
-                let endDate = new moment(item.endAt);
-                for(let i = new moment(item.startAt); endDate.isSameOrAfter(i); i.add(1, 'week')){
+                let endDate = new moment(item.endAt).tz("Pacific/Auckland");
+                for(let i = new moment(item.startAt).tz("Pacific/Auckland"); endDate.isSameOrAfter(i); i.add(1, 'week')){
                     for(let g = 0, len = item.days.length; g < len; g++){
                         let day = item.days[g];
                         let startTime = new moment(i)
+                            .tz("Pacific/Auckland")
                             .day(day.dayOfWeek)
                             .hour((day.times[0].startTime).substring(0, 2)) // value of start time e.g 12:00
                             .minute((day.times[0].startTime).substring(3,5));
                         
                         let endTime = new moment(i)
+                            .tz("Pacific/Auckland")
                             .day(day.dayOfWeek)
                             .hour((day.times[0].endTime).substring(0, 2))
                             .minute((day.times[0].endTime).substring(3,5));
