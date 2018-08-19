@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 4000
 app.use(cache.middleware('5 minutes'));
 
 //cachedRequest.setCacheDirectory(cacheDirectory);
-//17180
+//17180gi
 //http://localhost:4000/calendar?offering=968,17180
 
 function getCalendarFromCourse(offering) {
@@ -80,6 +80,10 @@ app.get('/calendar', (req, res) => {
         let array = [].concat.apply([], responses);
         res.send(array);
     })
+})
+
+app.get('/', (req, res) => {
+    res.send("<h3>Timetables!</h3> </br> <p>An iCal link is avaliable at https://vuw-timetable.herokuapp.com/ical?offerings=1,2,3 - make sure to put the CRN number in of the courses that you are taking!</p> </br> <p>Built by <a href='https://morgan.french.net.nz'>Morgan French-Stagg</a></p>");
 })
 
 app.listen(PORT, () => {
