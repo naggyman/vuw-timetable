@@ -1,0 +1,22 @@
+{
+  "name": "vic-ical",
+  "version": "1.0.0",
+  "description": "Generate iCal from VUW Courses",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "10.8.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apicache": "^1.2.3",
+    "cached-request": "^1.1.4",
+    "express": "^4.16.3",
+    "ical-generator": "^1.0.3",
+    "moment": "^2.22.2",
+    "request": "^2.88.0"
+  }
+}
