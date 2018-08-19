@@ -19,7 +19,7 @@ function getCalendarFromCourse(offering, year) {
         cachedRequest({url:'https://www.victoria.ac.nz/_service/courses/2.1/offerings/'+ offering + '?year=' + year}, (error, resp, body) => { 
         let response = JSON.parse(body);
         if(error || (response.request_status && !response.request_status.success)){
-            reject(error);
+            reject(error || response);
         }
         else{
             let events = [];
@@ -66,7 +66,7 @@ app.get('/ical', (req, res) => {
 
     let promises = [];
     for(let i = 0, len = offerings.length; i < len; i++){
-        promises.push(getCalendarFromCourse(offerings[i]));
+        promises.push(getCalendarFromCourse(offerings[i], year));
     }
 
     Promise.all(promises).then((responses) => {
