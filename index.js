@@ -4,15 +4,14 @@ const ical = require('ical-generator');
 const moment = require('moment-timezone');
 const cache = require('apicache');
 let app = express();
+const path = require('path');
 
 const PORT = process.env.PORT || 4000
-const errorMsg = "Unable to find that course, please ensure that you have entered in a valid CRN number";
+const errorMsg = {error: "Unable to find that course, please ensure that you have entered in a valid CRN number"};
 
 app.use(cache.middleware('5 minutes'));
 
-//cachedRequest.setCacheDirectory(cacheDirectory);
-//17180gi
-//http://localhost:4000/calendar?offering=968,17180
+//http://localhost:4000/calendar?offerings=968,17180&year=2018
 
 function getCalendarFromCourse(offering, year) {
     return new Promise((resolve, reject) => {
@@ -40,11 +39,18 @@ function getCalendarFromCourse(offering, year) {
                             .hour((day.times[0].endTime).substring(0, 2))
                             .minute((day.times[0].endTime).substring(3,5));
         
+                        let description = response.data[0].mainTeachingLocation.campus + ' Campus \nLecturers:\n';
+                        response.data[0].lecturers.forEach((lecturer) => {
+                            description += '- ' + lecturer.fullName + ' (' + lecturer.email;
+                            if(lecturer.location) description += ' - ' + lecturer.location.building + ' ' + lecturer.location.room + ')\n';
+                            else description += ')\n'
+                        })
+
                         events.push({
                             start: startTime,
                             end: endTime,
                             summary: (response.data[0].courseId).toUpperCase() + ' - Lecture',
-                            description: '',
+                            description: description,
                             location: day.times[0].location.buildingName + ' ' + day.times[0].location.room
                         });
                     }
@@ -59,7 +65,10 @@ function getCalendarFromCourse(offering, year) {
 
 
 app.get('/ical', (req, res) => {
-    if(!req.query.offerings || !req.query.year) res.status(404).send(errorMsg);
+    if(!req.query.offerings || !req.query.year){
+        res.status(404).send(errorMsg);
+        return;
+    } 
 
     let offerings = req.query.offerings.split(',');
     let year = req.query.year;
@@ -80,7 +89,10 @@ app.get('/ical', (req, res) => {
 })
 
 app.get('/calendar', (req, res) => {
-    if(!req.query.offerings || !req.query.year) res.status(404).send(errorMsg);
+    if(!req.query.offerings || !req.query.year){
+        res.status(404).send(errorMsg);
+        return;
+    } 
 
     let offerings = req.query.offerings.split(',');
     let year = req.query.year;
@@ -98,8 +110,10 @@ app.get('/calendar', (req, res) => {
     });
 })
 
-app.get('/', (req, res) => {
-    res.send("<h3>Timetables!</h3> </br> <p>An iCal link is avaliable at https://vuw-timetable.herokuapp.com/ical?offerings=1,2,3&year=2018 - make sure to put the CRN number in of the courses that you are taking!</p> </br> <p>Built by <a href='https://morgan.french.net.nz'>Morgan French-Stagg</a></p>");
+app.use(express.static('public'));
+
+app.get('*', function(req, res){
+    res.redirect('/404.html?path=' + req.path);
 })
 
 app.listen(PORT, () => {

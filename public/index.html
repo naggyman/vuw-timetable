@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>VUW iCal Timetable Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        * {
+            line-height: 1.2;
+        }
+
+        html {
+            color: #888;
+            display: table;
+            font-family: sans-serif;
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            vertical-align: top;
+            margin-top: 5%;
+            margin: 2em auto;
+        }
+
+        h1 {
+            color: #555;
+            text-align: center;
+            font-size: 2em;
+            font-weight: 400;
+        }
+
+        p {
+            margin: 0 auto;
+            margin-top: 10px;
+            width: 90%;
+        }
+
+        @media only screen and (max-width: 280px) {
+
+            body, p {
+                width: 95%;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin: 0 0 0.3em;
+            }
+
+        }
+
+    </style>
+</head>
+<body>
+    <h1>VUW iCal Timetable Generator</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris scelerisque sapien id ex efficitur pulvinar. Pellentesque venenatis tempor hendrerit. Etiam fringilla luctus augue, non vehicula urna tristique ac. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis tincidunt urna vel euismod. Sed vel diam justo. Ut fringilla suscipit facilisis. Praesent efficitur imperdiet nibh, sodales ullamcorper tellus aliquam ac. Maecenas facilisis pulvinar rutrum. Integer varius pellentesque iaculis. Suspendisse ultricies neque quis neque vehicula, vel varius nibh facilisis. Vestibulum non turpis velit.</p>
+
+    <p><form style="text-align: center" action="/ical">
+        CRN Numbers (comma separated):<input type="text" name="offerings"><br>
+        <script language="JavaScript">
+            var time = new Date();
+            var year = time.getYear();
+            if (year < 1900) {
+            year = year + 1900;
+            }
+            var date = year - 3; /*change the '101' to the number of years in the past you want to show */
+            var future = year + 1; /*change the '100' to the number of years in the future you want to show */ 
+            document.write ("Year: <SELECT name=\"year\"><OPTION value=\"\">Year");
+            do {
+            date++;
+            document.write ("<OPTION value=\"" +date+"\">" +date+ "");
+            }
+            while (date < future)
+            document.write ("</SELECT>");
+        </script>
+        <input type="submit" value="Submit">
+    </form></p>
+    
+    <p>Praesent at urna sit amet augue tincidunt ultricies. Integer justo ante, vulputate vel sem et, mattis feugiat nunc. Nunc id ex in turpis iaculis pharetra. Cras porttitor risus at purus elementum blandit. Aliquam risus leo, rhoncus vitae efficitur quis, scelerisque sagittis ante. Vestibulum sodales libero augue, eu imperdiet odio mollis ut. Morbi mollis dolor eget lacinia consequat. Praesent condimentum nulla nunc, vel lobortis orci tristique iaculis. Nulla ac enim eget massa tempor faucibus id vitae ex. Integer commodo ligula eget ante ullamcorper tincidunt. Nulla quis gravida orci, vitae posuere sapien. Nam sollicitudin elit erat, non consequat quam ultrices ut. Maecenas id tincidunt lacus. Integer dui eros, laoreet non dolor id, dapibus tempus tellus.</p>
+    <p>Proin at turpis in nunc consequat pharetra. Suspendisse malesuada risus nec massa laoreet auctor. Ut lacinia eros libero, at imperdiet ipsum tempor ut. Vestibulum volutpat augue ligula, non auctor eros interdum a. Sed dignissim auctor nunc vel pharetra. Vestibulum sed fermentum urna. Mauris ultricies nibh suscipit congue laoreet. Nam suscipit quis neque nec pharetra. Nullam ante mi, dictum eget arcu ultrices, rhoncus interdum felis. Aenean facilisis convallis porta. Mauris finibus scelerisque dignissim. Sed consequat vestibulum vestibulum. Curabitur at augue at augue ullamcorper finibus sit amet in risus. Donec in facilisis quam. Mauris in pharetra sapien, non porta dolor. Duis ex magna, efficitur id pulvinar ac, condimentum quis arcu.</p>
+    <p>Sed risus augue, tincidunt eu elit id, aliquet sodales lorem. In mollis risus tellus, non mollis dolor efficitur nec. Proin non magna sit amet elit consequat auctor. Ut vitae turpis sed eros placerat venenatis sit amet sed purus. Curabitur rhoncus cursus ligula sit amet pellentesque. Donec luctus vitae tortor non iaculis. Donec porta metus eros, ut sollicitudin leo fermentum varius. Vestibulum et massa in arcu posuere mollis. Morbi nibh sem, vestibulum ut dignissim nec, malesuada iaculis dui. Etiam varius lectus quis massa tincidunt, eget pulvinar turpis efficitur. Quisque convallis nunc ut diam blandit efficitur.</p>
+    <p>Aliquam erat volutpat. Nulla nibh ligula, vestibulum at urna eget, ultrices blandit metus. Cras elit orci, rutrum id congue sed, lobortis id lorem. Quisque tristique diam in sapien tristique maximus. Nam at mattis orci. Vestibulum consectetur non mauris in sollicitudin. Maecenas vel commodo erat. Morbi in tortor consequat, porta ipsum vitae, aliquet nisl. Proin nec tortor eget metus mattis placerat. Nam lobortis volutpat sapien a varius. Donec vel eleifend lorem, sed pellentesque enim. Mauris mauris mi, laoreet sed pharetra sed, pretium nec ex.</p>
+    <br>
+    <p style="text-align:center">Morgan French-Stagg</p>
+</body>
+</html>
