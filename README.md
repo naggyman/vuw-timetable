@@ -1,4 +1,6 @@
 # VUW iCal Timetable Generator
+![Heroku](https://heroku-badge.herokuapp.com/?app=vuw-timetable)
+
 
 [Visit App](https://vuw-timetable.herokuapp.com/)
 
