@@ -42,7 +42,7 @@ function getCalendarFromCourse(offering, year) {
                         let description = response.data[0].mainTeachingLocation.campus + ' Campus \nLecturers:\n';
                         response.data[0].lecturers.forEach((lecturer) => {
                             description += '- ' + lecturer.fullName + ' (' + lecturer.email;
-                            if(lecturer.location) description += ' - ' + lecturer.location.building + ' ' + lecturer.location.room + ')\n';
+                            if(lecturer.location) description += ', ' + lecturer.location.building + ' ' + lecturer.location.room + ')\n';
                             else description += ')\n'
                         })
 
